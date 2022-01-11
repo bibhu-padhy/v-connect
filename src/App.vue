@@ -1,30 +1,36 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <Spinner v-if="loading.isLoading" :message="loading.message" />
+    <Header v-if="currentUser" />
+    <router-view />
   </div>
-  <router-view/>
 </template>
-
+<script>
+import Spinner from "./components/Spinner.vue";
+import Header from "./components/Header.vue";
+import { mapGetters } from "vuex";
+export default {
+  components: {
+    Spinner,
+    Header,
+  },
+  computed: {
+    ...mapGetters(["currentUser", "loading"]),
+  },
+};
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  font-family: "Roboto", sans-serif !important;
 }
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.loading {
+  position: fixed;
+  z-index: 1000;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* backdrop-filter: grayscale(0.5) opacity(0.8); */
 }
 </style>

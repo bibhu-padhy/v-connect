@@ -1,25 +1,48 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-
+import { createRouter, createWebHashHistory } from "vue-router";
+import Login from "../views/Login.vue";
+import { auth } from "../services/firebase/firebase";
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Login",
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      if (auth.currentUser) {
+        console.log(auth.currentUser);
+        next("/chat");
+      } else {
+        next();
+      }
+    },
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    path: "/chat",
+    name: "chat",
+    component: () => import("../views/Chat.vue"),
+    beforeEnter: (to, from, next) => {
+      if (!auth.currentUser) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
+    path: "/profile",
+    name: "Profile",
+    component: () => import("../views/Profile.vue"),
+    beforeEnter: (to, from, next) => {
+      if (!auth.currentUser) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
-})
-
-export default router
+  routes,
+});
+export default router;
