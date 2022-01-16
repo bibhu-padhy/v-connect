@@ -1,5 +1,6 @@
 <template>
   <div class="header_container">
+    <button class="btn" @click="$router.push('/users-list')">New Chat</button>
     <span>{{ currentLoggedinUser.displayName }}</span>
     <img
       @click="$router.push('/profile')"
@@ -24,15 +25,15 @@ export default {
   },
   methods: {
     logout() {
-      this.userCollectionRef
-        .doc(auth.currentUser.uid)
-        .set({ online: false }, { merge: true })
-        .then(() => {
-          auth.signOut().then(() => {
-            this.$router.push("/");
-            this.$store.dispatch("setUser", null);
-          });
-        });
+      // this.userCollectionRef
+      //   .doc(auth.currentUser.uid)
+      //   .set({ online: false }, { merge: true })
+      //   .then(() => {
+      //     });
+      auth.signOut().then(() => {
+        this.$router.push("/");
+        this.$store.dispatch("setUser", null);
+      });
     },
     mounted() {
       console.log(this.currentLoggedinUser);

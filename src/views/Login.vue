@@ -9,6 +9,15 @@
       <h3>
         {{ isLogin ? "Login" : "Register" }}
       </h3>
+      <div v-if="!isLogin" class="mb-3">
+        <label for="userName" class="form-label">User Name</label>
+        <input
+          type="text"
+          v-model="userName"
+          class="form-control"
+          id="userName"
+        />
+      </div>
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="email" v-model="email" class="form-control" id="email" />
@@ -40,6 +49,7 @@ export default {
   name: "Login",
   data() {
     return {
+      userName: null,
       isLogin: true,
       email: null,
       password: null,
@@ -70,8 +80,6 @@ export default {
       );
       if (userRef.user.uid) {
         this.onboardUser(userRef);
-        console.log(userRef.user.uid);
-        this.userCollectionRef.doc(userRef.user.uid);
       }
     },
     async emailRegister() {
@@ -85,7 +93,6 @@ export default {
     },
     login() {
       auth.signInWithPopup(new GoogleAuthProvider()).then((res) => {
-        console.log(res);
         if (res.user.uid) {
           this.onboardUser(res);
         }

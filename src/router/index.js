@@ -3,6 +3,18 @@ import Login from "../views/Login.vue";
 import { auth } from "../services/firebase/firebase";
 const routes = [
   {
+    path: "/users-list",
+    name: "UsersList",
+    component: () => import("../views/UsersList.vue"),
+    beforeEnter: (to, from, next) => {
+      if (!auth.currentUser) {
+        next("/login");
+      } else {
+        next();
+      }
+    },
+  },
+  {
     path: "/",
     name: "Login",
     component: Login,

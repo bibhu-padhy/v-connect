@@ -1,17 +1,15 @@
 <template>
   <div class="users_list_container">
-    <div
-      @click.prevent="$emit('start-chat', user)"
-      class="user_card"
-      v-for="user in usersList"
-      :key="user.uid"
-    >
+    <div @click.prevent="$emit('start-chat', user)" class="user_card">
       <img :src="user?.photoURL" :alt="user.displayName" />
       <div class="user_name">
         {{ user.displayName }}
         {{ user.online ? "online" : "offline" }}
         <div v-if="user.online === false">
           {{ user.lastChanged }}
+        </div>
+        <div v-if="user?.lastMessage">
+          {{ user.lastMessage }}
         </div>
       </div>
     </div>
@@ -21,7 +19,7 @@
 <script>
 export default {
   name: "UsersList",
-  props: ["usersList"],
+  props: ["user"],
 };
 </script>
 <style scoped>

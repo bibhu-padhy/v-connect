@@ -8,6 +8,7 @@ export default createStore({
     currentUser: null,
     currentChatUser: null,
     chatUsersList: null,
+    currentChatUserMessages: [],
   },
   mutations: {
     setUser(state, payload) {
@@ -21,6 +22,9 @@ export default createStore({
     },
     setLoading(state, payload) {
       state.loading = payload;
+    },
+    setCurrentChatUserMessages(state, payload) {
+      state.currentChatUserMessages = payload;
     },
   },
   actions: {
@@ -37,6 +41,9 @@ export default createStore({
     setLoading({ commit }, payload) {
       commit("setLoading", payload);
     },
+    setCurrentChatUserMessages({ commit }, payload) {
+      commit("setCurrentChatUserMessages", payload);
+    },
   },
   getters: {
     currentUser: (state) => state.currentUser,
@@ -44,5 +51,6 @@ export default createStore({
     loggedinUserUid: (state) => state.currentUser.uid || null,
     chatUsersList: (state) => state.chatUsersList,
     loading: (state) => state.loading,
+    currentChatUserMessages: (state) => state.currentChatUserMessages,
   },
 });
