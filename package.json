@@ -7,9 +7,13 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
+    "emoji-mart": "^3.0.1",
+    "emoji-mart-vue": "^2.4.4",
     "firebase": "^9.6.1",
     "moment": "^2.29.1",
+    "quasar": "^2.0.0",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuetify": "^2.6.2",
@@ -21,6 +25,7 @@
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
+    "vue-cli-plugin-quasar": "~4.0.4",
     "vue-cli-plugin-vuetify": "~2.4.5"
   }
 }

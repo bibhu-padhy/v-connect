@@ -57,6 +57,12 @@ export default {
   },
   methods: {
     showFromNow(date) {
+      if (
+        moment(new Date(date.toDate())).fromNow() !== "a few seconds ago" &&
+        moment(new Date(date.toDate())).fromNow() !== "a minute ago"
+      ) {
+        return moment(new Date(date.toDate())).format("ddd Do YY");
+      }
       return moment(new Date(date.toDate())).fromNow();
     },
     newMessage() {
@@ -71,7 +77,7 @@ export default {
     },
   },
   mounted() {
-    console.log();
+    console.log(new Date().toLocaleTimeString());
   },
   computed: {
     ...mapGetters([

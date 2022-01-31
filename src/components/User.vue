@@ -5,8 +5,8 @@
       <div class="user_name">
         {{ user.displayName }}
         {{ user.online ? "online" : "offline" }}
-        <div v-if="user.online === false">
-          {{ user.lastChanged }}
+        <div>
+          {{ showFromNow(user.lastChanged) }}
         </div>
         <div v-if="user?.lastMessage">
           {{ user.lastMessage }}
@@ -17,9 +17,26 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "UsersList",
   props: ["user"],
+  methods: {
+    showFromNow(date) {
+      if (
+        moment(date).month() === moment(new Date()).month() &&
+        moment(date).date() === moment(new Date()).date()
+      ) {
+        return "Today";
+      } else if (
+        moment(date).month() === moment(new Date()).month() &&
+        moment(date).date() - 1 === moment(new Date()).date() - 1
+      ) {
+        return "Yesterday";
+      }
+      return moment(new Date(date)).format("ddd Do YY");
+    },
+  },
 };
 </script>
 <style scoped>

@@ -3,6 +3,8 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import { auth } from "./services/firebase/firebase";
+import { Quasar } from 'quasar'
+import quasarUserOptions from './quasar-user-options'
 
 const unsubscribe = auth.onAuthStateChanged((user) => {
   let u = null;
@@ -16,6 +18,6 @@ const unsubscribe = auth.onAuthStateChanged((user) => {
   }
 
   store.dispatch("setUser", u || user);
-  createApp(App).use(store).use(router).mount("#app");
+  createApp(App).use(Quasar, quasarUserOptions).use(store).use(router).mount("#app");
   unsubscribe();
 });
